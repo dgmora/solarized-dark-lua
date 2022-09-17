@@ -211,10 +211,8 @@ local theme = lush(function()
     Error          {  fg = colors.red, bg = colors.err_bg, gui = 'bold,reverse' }, -- Any erroneous construct
     Todo           {  fg = colors.magenta, gui = 'bold' }, -- Anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
-    -- QuickFixLine  { Search }
     -- StatusLineTerm  { StatusLine }
     -- StatusLineTermNC  { StatusLineNC }
-    -- lCursor  { Cursor }
 
     -- These groups are for the native LSP client and diagnostic system. Some
     -- other LSP clients may use these groups, or use their own. Consult your
@@ -222,27 +220,27 @@ local theme = lush(function()
 
     -- See :h lsp-highlight, some groups may not be listed, submit a PR fix to lush-template!
     --
-    -- LspReferenceText            { } , -- Used for highlighting "text" references
-    -- LspReferenceRead            { } , -- Used for highlighting "read" references
-    -- LspReferenceWrite           { } , -- Used for highlighting "write" references
+    LspReferenceText            {  fg = colors.none, gui = 'underline' } , -- Used for highlighting "text" references
+    LspReferenceRead            { LspReferenceText } , -- Used for highlighting "read" references
+    LspReferenceWrite           {  fg = colors.none, gui = 'underline,bold' } , -- Used for highlighting "write" references
     -- LspCodeLens                 { } , -- Used to color the virtual text of the codelens. See |nvim_buf_set_extmark()|.
     -- LspCodeLensSeparator        { } , -- Used to color the seperator between two or more code lens.
     -- LspSignatureActiveParameter { } , -- Used to highlight the active parameter in the signature help. See |vim.lsp.handlers.signature_help()|.
 
     -- See :h diagnostic-highlights, some groups may not be listed, submit a PR fix to lush-template!
     --
-    -- DiagnosticError            { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-    -- DiagnosticWarn             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-    -- DiagnosticInfo             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-    -- DiagnosticHint             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticError            { fg = colors.red,guisp=colors.red, gui = 'none' } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticWarn             { fg = colors.yellow,guisp=colors.yellow, gui = 'none' } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticInfo             { fg = colors.cyan,guisp=colors.cyan, gui = 'none' } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticHint             { fg = colors.green,guisp=colors.green, gui = 'none' } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticVirtualTextError { } , -- Used for "Error" diagnostic virtual text.
     -- DiagnosticVirtualTextWarn  { } , -- Used for "Warn" diagnostic virtual text.
     -- DiagnosticVirtualTextInfo  { } , -- Used for "Info" diagnostic virtual text.
-    -- DiagnosticVirtualTextHint  { } , -- Used for "Hint" diagnostic virtual text.
-    -- DiagnosticUnderlineError   { } , -- Used to underline "Error" diagnostics.
-    -- DiagnosticUnderlineWarn    { } , -- Used to underline "Warn" diagnostics.
-    -- DiagnosticUnderlineInfo    { } , -- Used to underline "Info" diagnostics.
-    -- DiagnosticUnderlineHint    { } , -- Used to underline "Hint" diagnostics.
+    -- DiagnosticVirtualTextHint  { } , -- Used for "Hint"  diagnostic virtual text.
+    -- DiagnosticUnderlineError   {  fg = colors.none, sp = colors.red, gui = 'underline' } , -- Used to underline "Error" diagnostics.
+    -- DiagnosticUnderlineWarn    {  fg = colors.none, sp = colors.yellow, gui = 'underline' } , -- Used to underline "Warn" diagnostics.
+    -- DiagnosticUnderlineInfo    {  fg = colors.none, sp = colors.cyan, gui = 'underline' } , -- Used to underline "Info" diagnostics.
+    -- DiagnosticUnderlineHint    {  fg = colors.none, sp = colors.green, gui = 'underline' } , -- Used to underline "Hint" diagnostics.
     -- DiagnosticFloatingError    { } , -- Used to color "Error" diagnostic messages in diagnostics float. See |vim.diagnostic.open_float()|
     -- DiagnosticFloatingWarn     { } , -- Used to color "Warn" diagnostic messages in diagnostics float.
     -- DiagnosticFloatingInfo     { } , -- Used to color "Info" diagnostic messages in diagnostics float.
@@ -258,71 +256,73 @@ local theme = lush(function()
     -- See :h nvim-treesitter-highlights, some groups may not be listed, submit a PR fix to lush-template!
     --
     -- TSAttribute          { } , -- Annotations that can be attached to the code to denote some kind of meta information. e.g. C++/Dart attributes.
-    -- TSBoolean            { Constant } , -- Boolean literals: `True` and `False` in Python.
-    -- TSCharacter          { Constant } , -- Character literals: `'a'` in C.
+    TSBoolean            { Constant } , -- Boolean literals: `True` and `False` in Python.
+    TSCharacter          { Constant } , -- Character literals: `'a'` in C.
     -- TSCharacterSpecial   { } , -- Special characters.
-    -- TSComment            { Comment } , -- Line comments and block comments.
-    -- TSConditional        { Conditional } , -- Keywords related to conditionals: `if`, `when`, `cond`, etc.
-    -- TSConstBuiltin       { Constant } , -- Built-in constant values: `nil` in Lua.
-    -- TSConstMacro         { Constant } , -- Constants defined by macros: `NULL` in C.
-    -- TSConstant           { Constant } , -- Constants identifiers. These might not be semantically constant. E.g. uppercase variables in Python.
-    -- TSConstructor        { Function } , -- Constructor calls and definitions: `{}` in Lua, and Java constructors.
+    TSComment            { Comment } , -- Line comments and block comments.
+    TSConditional        { Conditional } , -- Keywords related to conditionals: `if`, `when`, `cond`, etc.
+    TSConstBuiltin       { Constant } , -- Built-in constant values: `nil` in Lua.
+    TSConstMacro         { Constant } , -- Constants defined by macros: `NULL` in C.
+    TSConstant           { Constant } , -- Constants identifiers. These might not be semantically constant. E.g. uppercase variables in Python.
+    TSConstructor        { Function } , -- Constructor calls and definitions: `{}` in Lua, and Java constructors.
     -- TSDanger             { } , -- Text representation of a danger note.
     -- TSDebug              { } , -- Debugging statements.
     -- TSDefine             { } , -- Preprocessor #define statements.
     -- TSEmphasis           { } , -- Text to be represented with emphasis.
     -- TSEnvironment        { } , -- Text environments of markup languages.
     -- TSEnvironmentName    { } , -- Text/string indicating the type of text environment. Like the name of a `\begin` block in LaTeX.
-    -- TSError              { fg = colors.red } , -- Syntax/parser errors. This might highlight large sections of code while the user is typing still incomplete code, use a sensible highlight.
-    -- TSException          { Exception } , -- Exception related keywords: `try`, `except`, `finally` in Python.
-    -- TSField              { Identifier } , -- Object and struct fields.
-    -- TSFloat              { Float } , -- Floating-point number literals.
-    -- TSFuncBuiltin        { Function } , -- Built-in functions: `print` in Lua.
-    -- TSFuncMacro          { Function } , -- Macro defined functions (calls and definitions): each `macro_rules` in Rust.
-    -- TSFunction           { Function } , -- Function calls and definitions.
-    -- TSInclude            { Include } , -- File or module inclusion keywords: `#include` in C, `use` or `extern crate` in Rust.
-    -- TSKeyword            { Keyword } , -- Keywords that don't fit into other categories.
-    -- TSKeywordFunction    { Identifier } , -- Keywords used to define a function: `function` in Lua, `def` and `lambda` in Python.
+    TSError              { fg = colors.red } , -- Syntax/parser errors. This might highlight large sections of code while the user is typing still incomplete code, use a sensible highlight.
+    TSException          { Exception } , -- Exception related keywords: `try`, `except`, `finally` in Python.
+    TSField              { Identifier } , -- Object and struct fields.
+    TSFloat              { Float } , -- Floating-point number literals.
+    TSFuncBuiltin        { Function } , -- Built-in functions: `print` in Lua.
+    TSFuncMacro          { Function } , -- Macro defined functions (calls and definitions): each `macro_rules` in Rust.
+    TSFunction           { Function } , -- Function calls and definitions.
+    TSInclude            { Include } , -- File or module inclusion keywords: `#include` in C, `use` or `extern crate` in Rust.
+    TSKeyword            { Keyword } , -- Keywords that don't fit into other categories.
+    TSKeywordFunction    { Identifier } , -- Keywords used to define a function: `function` in Lua, `def` and `lambda` in Python.
     -- TSKeywordOperator    { } , -- Unary and binary operators that are English words: `and`, `or` in Python; `sizeof` in C.
     -- TSKeywordReturn      { } , -- Keywords like `return` and `yield`.
-    -- TSLabel              { Label } , -- GOTO labels: `label:` in C, and `::label::` in Lua.
-    -- TSLiteral            { Normal } , -- Literal or verbatim text.
+    TSLabel              { Label } , -- GOTO labels: `label:` in C, and `::label::` in Lua.
+    TSLiteral            { Normal } , -- Literal or verbatim text.
     -- TSMath               { } , -- Math environments like LaTeX's `$ ... $`
-    -- TSMethod             { Function } , -- Method calls and definitions.
-    -- TSNamespace          { Identifier } , -- Identifiers referring to modules and namespaces.
+    TSMethod             { Function } , -- Method calls and definitions.
+    TSNamespace          { Identifier } , -- Identifiers referring to modules and namespaces.
     -- TSNone               { } , -- No highlighting (sets all highlight arguments to `NONE`). this group is used to clear certain ranges, for example, string interpolations. Don't change the values of this highlight group.
     -- TSNote               { } , -- Text representation of an informational note.
-    -- TSNumber             { Constant } , -- Numeric literals that don't fit into other categories.
-    -- TSOperator           { Operator } , -- Binary or unary operators: `+`, and also `->` and `*` in C.
-    -- TSParameter          { Identifier } , -- Parameters of a function.
-    -- TSParameterReference { Identifier } , -- References to parameters of a function.
+    TSNumber             { Constant } , -- Numeric literals that don't fit into other categories.
+    TSOperator           { Operator } , -- Binary or unary operators: `+`, and also `->` and `*` in C.
+    TSParameter          { Identifier } , -- Parameters of a function.
+    TSParameterReference { Identifier } , -- References to parameters of a function.
     -- TSPreProc            { } , -- Preprocessor #if, #else, #endif, etc.
-    -- TSProperty           { TSField } , -- Same as `TSField`.
-    -- TSPunctBracket       { Delimiter } , -- Brackets, braces, parentheses, etc.
-    -- TSPunctDelimiter     { Delimiter } , -- Punctuation delimiters: Periods, commas, semicolons, etc.
-    -- TSPunctSpecial       { Special } , -- Special punctuation that doesn't fit into the previous categories.
-    -- TSRepeat             { Repeat } , -- Keywords related to loops: `for`, `while`, etc.
+    TSProperty           { TSField } , -- Same as `TSField`.
+    TSPunctBracket       { Delimiter } , -- Brackets, braces, parentheses, etc.
+    TSPunctDelimiter     { Delimiter } , -- Punctuation delimiters: Periods, commas, semicolons, etc.
+    TSPunctSpecial       { Special } , -- Special punctuation that doesn't fit into the previous categories.
+    TSRepeat             { Repeat } , -- Keywords related to loops: `for`, `while`, etc.
     -- TSStorageClass       { } , -- Keywords that affect how a variable is stored: `static`, `comptime`, `extern`, etc.
     -- TSStrike             { } , -- Strikethrough text.
-    -- TSString             { Constant } , -- String literals.
-    -- TSStringEscape       { Constant } , -- Escape characters within a string: `\n`, `\t`, etc.
-    -- TSStringRegex        { Constant } , -- Regular expression literals.
+    TSString             { Constant } , -- String literals.
+    TSStringEscape       { Constant } , -- Escape characters within a string: `\n`, `\t`, etc.
+    TSStringRegex        { Constant } , -- Regular expression literals.
     -- TSStringSpecial      { } , -- Strings with special meaning that don't fit into the previous categories.
-    -- TSStrong             {  fg = colors.base1, bg = colors.base03, gui = 'bold' } , -- Text to be represented in bold.
+    TSStrong             {  fg = colors.base1, bg = colors.base03, gui = 'bold' } , -- Text to be represented in bold.
     -- TSSymbol             { } , -- Identifiers referring to symbols or atoms.
-    -- TSTag                { Special } , -- Tags like HTML tag names.
+    TSTag                { Special } , -- Tags like HTML tag names.
     -- TSTagAttribute       { } , -- HTML tag attributes.
-    -- TSTagDelimiter       { Delimiter } , -- Tag delimiters like `<` `>` `/`.
+    TSTagDelimiter       { Delimiter } , -- Tag delimiters like `<` `>` `/`.
     -- TSText               { } , -- Non-structured text. Like text in a markup language.
     -- TSTextReference      { } , -- Footnotes, text references, citations, etc.
-    -- TSTitle              { Title } , -- Text that is part of a title.
-    -- TSType               { Type } , -- Type (and class) definitions and annotations.
-    -- TSTypeBuiltin        { Type } , -- Built-in types: `i32` in Rust.
+    TSTitle              { Title } , -- Text that is part of a title.
+    TSType               { Type } , -- Type (and class) definitions and annotations.
+    TSTypeBuiltin        { Type } , -- Built-in types: `i32` in Rust.
     -- TSURI                { } , -- URIs like hyperlinks or email addresses.
     -- TSUnderline          { } , -- Text to be represented with an underline.
-    -- TSVariable           { fg = colors.base0 } , -- Variable names that don't fit into other categories.
-    -- TSVariableBuiltin    { Identifier } , -- Variable names defined by the language: `this` or `self` in Javascript.
+    TSVariable           { fg = colors.base0 } , -- Variable names that don't fit into other categories.
+    TSVariableBuiltin    { Identifier } , -- Variable names defined by the language: `this` or `self` in Javascript.
     -- TSWarning            { } , -- Text representation of a warning note.
+
+    -- This is some stuff that the other solarized from ishan had
 
     -- vimCommentString  { fg = colors.violet},
     -- vimCommand  { fg = colors.yellow},
@@ -505,22 +505,6 @@ local theme = lush(function()
     -- pandocLineBreak  syntax['pandocEscapePair']
     -- pandocMetadataTitle  syntax['pandocMetadata']
 
-	    -- TreeSitter
-   -- syntax['TSAnnotation'] = syntax['']
-	    -- syntax['TSEmphasis'] = syntax['']
-
-    -- DiagnosticError  { fg = colors.red,guisp=colors.red, gui = 'none'},
-    -- DiagnosticWarn  { fg = colors.yellow,guisp=colors.yellow, gui = 'none'},
-    -- DiagnosticInfo  { fg = colors.cyan,guisp=colors.cyan, gui = 'none'},
-    -- DiagnosticHint  { fg = colors.green,guisp=colors.green, gui = 'none'},
-    -- DiagnosticUnderlineError  { fg = colors.none,guisp=colors.red, gui = 'underline'},
-    -- DiagnosticUnderlineWarn  { fg = colors.none,guisp=colors.yellow, gui = 'underline'},
-    -- DiagnosticUnderlineInfo  { fg = colors.none,guisp=colors.cyan, gui = 'underline'},
-    -- DiagnosticUnderlineHint  { fg = colors.none,guisp=colors.green, gui = 'underline'},
-
-    -- LspReferenceRead  { fg = colors.none, gui = 'underline'},
-    -- LspReferenceText  syntax['LspReferenceRead']
-    -- LspReferenceWrite  { fg = colors.none, gui = 'underline,bold'},
 
     -- LspSagaFinderSelection  syntax['Search']
     -- TargetWord  syntax['Title']
