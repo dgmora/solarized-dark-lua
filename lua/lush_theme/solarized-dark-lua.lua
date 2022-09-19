@@ -95,9 +95,9 @@ local theme = lush(function()
     CursorIM     { fg = colors.none, bg = colors.base0  }, -- Like Cursor, but used when in IME mode |CursorIM|
     CursorLine   { fg = colors.none, bg = colors.base02 }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     CursorLineNr { fg=colors.base0,  bg=colors.base02, style = 'bold'}, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    DiffAdd { fg = colors.green, bg = colors.base02 },
-    DiffChange   { fg = colors.yellow, bg = colors.base02 }, -- Diff mode: Changed line |diff.txt|
-    DiffDelete   { fg = colors.red, bg = colors.base02, gui = 'bold' }, -- Diff mode: Deleted line |diff.txt|
+    DiffAdd { fg = colors.green },
+    DiffChange   { fg = colors.yellow }, -- Diff mode: Changed line |diff.txt|
+    DiffDelete   { fg = colors.red, gui = 'bold' }, -- Diff mode: Deleted line |diff.txt|
     DiffText     { fg = colors.blue, bg = colors.base02 }, -- Diff mode: Changed text within a changed line |diff.txt|
     Directory    { fg = colors.blue }, -- Directory names (and other special names in listings)
     --  ?? should use this or what EndOfBuffer  { fg = colors.none, ctermfg=colors.none, ctermbg=colors.none},
