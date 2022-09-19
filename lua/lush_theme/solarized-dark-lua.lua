@@ -100,8 +100,7 @@ local theme = lush(function()
     DiffDelete   { fg = colors.red, gui = 'bold' }, -- Diff mode: Deleted line |diff.txt|
     DiffText     { fg = colors.blue, bg = colors.base02 }, -- Diff mode: Changed text within a changed line |diff.txt|
     Directory    { fg = colors.blue }, -- Directory names (and other special names in listings)
-    --  ?? should use this or what EndOfBuffer  { fg = colors.none, ctermfg=colors.none, ctermbg=colors.none},
-    EndOfBuffer  { }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+    EndOfBuffer  { fg = bg }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
     ErrorMsg     { fg = colors.red, bg = colors.err_bg, gui = 'reverse' }, -- Error messages on the command line
     FoldColumn   { fg = colors.base0 }, -- 'foldcolumn'
     Folded       { fg = colors.base0, gui = 'bold' }, -- Line used for closed folds
