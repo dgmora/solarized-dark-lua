@@ -509,9 +509,10 @@ local theme = lush(function()
     -- LspSagaFinderSelection  syntax['Search']
     -- TargetWord  syntax['Title']
 
-    -- GitSignsAdd  syntax['DiffAdd']
-    -- GitSignsChange  syntax['DiffChange']
-    -- GitSignsDelete  syntax['DiffDelete']
+    -- plugin GitSigns
+    GitSignsAdd  { DiffAdd },
+    GitSignsChange  { DiffChange },
+    GitSignsDelete  { DiffDelete },
 
     -- VGitSignAdd  syntax['DiffAdd']
     -- VgitSignChange  syntax['DiffChange']
