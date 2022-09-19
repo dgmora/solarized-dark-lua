@@ -201,7 +201,7 @@ local theme = lush(function()
     Special        { fg = colors.orange }, -- (*) Any special symbol
     SpecialChar    { Special }, --   Special character in a constant
     Tag            { Special }, --   You can use CTRL-] on this
-    Delimiter      { fg = colors.base0 }, --   Character that needs attention
+    Delimiter      { fg = colors.none }, --   Character that needs attention
     SpecialComment { Special }, --   Special things inside a comment (e.g. '\n')
     Debug          { Special }, --   Debugging statements
 
